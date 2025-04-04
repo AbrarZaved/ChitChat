@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body %}
+<main class="mt-20 container mx-auto p-6">
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-3xl font-bold text-gray-800">Welcome to ChitChat</h2>
+        <p class="text-gray-600 mt-4 text-lg">Join a room and start chatting with your friends!</p>
+
+        <div class="mt-8">
+            {% for room in rooms %}
+            <div class="flex items-center justify-between shadow-md p-4 m-2 rounded-lg bg-gray-50 hover:bg-gray-100 transition">
+                <a href="{% url 'chat_room' room.slug %}" class="text-blue-600 font-semibold text-lg hover:underline">
+                    {{ room.name }}
+                </a>
+                <div class="flex items-center">
+                    <button class="share-btn flex items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition mr-2"
+                            data-url="{{ request.build_absolute_uri|slice:':-1' }}{% url 'chat_room' room.slug %}">
+                        <i class="fas fa-share-alt mr-2"></i> Share
+                    </button>
+                    <a href="{% url "delete_room" room.slug %}" 
+                       class="flex items-center bg-red-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition mr-2">
+                        <i class="fas fa-trash mr-2"></i> Delete
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</main>
+{% endblock body %}

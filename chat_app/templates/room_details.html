@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<div class="container mx-auto mt-10 px-4">
+    <!-- Chat Room Name -->
+    <div class="font-bold text-xl text-center mb-4 bg-blue-600 text-white py-3 px-6 rounded-lg shadow-md">
+        {{ chat_room.name }}
+    </div>
+    
+    <!-- Chat Messages -->
+    <div id="chat-messages" class="overflow-auto max-h-96 mb-16 p-2">
+        {% for message in messages %}
+        <div class="message shadow-lg p-3 rounded-lg bg-blue-300 m-3">
+            <div class="text-sm text-gray-500">{{ message.user }}</div>
+            <div class="text-lg mt-2">{{ message.content }}</div>
+            <div class="text-sm text-gray-500 mt-2">{{ message.timestamp }}</div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Message Input -->
+    <div class="form-container fixed inset-x-0 bottom-0 bg-blue-900 p-4">
+        <form action="" method="POST" class="flex items-center">
+            {% csrf_token %}
+            <input type="text" name="message" id="message" class="rounded-md w-full py-2 px-4 mr-2" placeholder="Type your message here" required>
+            <button type="submit" id="send-button" class="text-white bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-700">Send</button>
+        </form>
+    </div>
+
+    <!-- JSON data for JS -->
+    {{ chat_room.slug|json_script:"json-chatroomname" }}
+    {{ request.user.username|json_script:"json-username" }}
+
+    <!-- WebSocket Integration -->
+    <script src='{% static 'js/room.js' %}'></script>
+</div>
+{% endblock body %}
