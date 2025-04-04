@@ -88,10 +88,7 @@ ChitChat is a Django-based web application that allows users to create and join 
 
 Contributions are welcome! Please feel free to submit pull requests with bug fixes, new features, or improvements. Please follow standard coding practices and include clear descriptions of your changes.
 
-## License
-
-[Your License Here (e.g., MIT License)]
 
 ## Author
 
-[Abrar Javed]
+**Abrar Javed**
